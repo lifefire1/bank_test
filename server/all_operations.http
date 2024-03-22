@@ -1,0 +1,7 @@
+POST http://localhost:8080/make_new_limit/retrieve
+Content-Type: application/json
+
+{
+  "username": "vasia",
+  "productLimits": 2000
+}

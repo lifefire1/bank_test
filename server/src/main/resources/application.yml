@@ -1,0 +1,35 @@
+# ????????? ??? ??????????? ? PostgreSQL
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/your_database
+    username: bank_user
+    password: your_password
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+
+
+
+# ????????? ??? ??????????? ? Cassandra
+  cassandra:
+    keyspace-name: your_keyspace
+    schema-action: recreate
+    local-datacenter: datacenter1
+    username: cassandra_user
+    password: cassandra_password
+
+# ????????? ?????????
+  application:
+    name: server
+  server:
+    port: 8080
+  apikey: edff0a6c884248c1970927f41d4ec174
+  quartz:
+    job-store-type: memory
+  main:
+    allow-bean-definition-overriding: true
+
