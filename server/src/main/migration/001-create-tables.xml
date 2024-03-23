@@ -1,0 +1,76 @@
+<!-- liquibase --changeLogFile=/path/to/001-create-tables.xml --url=jdbc:postgresql://localhost:5432/your_database --username=your_username --password=your_password update-->
+
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+
+    <!-- Создание таблицы "operations" -->
+    <changeSet id="create-operations-table" author="your_name">
+        <createTable tableName="operations">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="currency" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="current_limit" type="decimal(19,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="limit_exceeded" type="boolean"/>
+            <column name="type" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="value" type="decimal(19,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <!-- Создание таблицы "user_spending" -->
+    <changeSet id="create-user-spending-table" author="your_name">
+        <createTable tableName="user_spending">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="user_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="current_sum_product" type="decimal(19,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="current_sum_service" type="decimal(19,2)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <!-- Создание таблицы "users" -->
+    <changeSet id="create-users-table" author="your_name">
+        <createTable tableName="users">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="username" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="product_limits" type="decimal(19,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="service_limits" type="decimal(19,2)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>
