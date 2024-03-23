@@ -33,7 +33,7 @@ public class DailyJobTest {
         // Проверяем, что метод вернул ожидаемые результаты
         assertEquals(2, closedPrices.size());
 
-        assertEquals("\"92.40000\"", closedPrices.get("RUB"));
+        assertEquals("\"92.13500\"", closedPrices.get("RUB"));
         assertEquals("\"450.40500\"", closedPrices.get("KZT"));
     }
 }

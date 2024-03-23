@@ -1,0 +1,7 @@
+POST http://localhost:8081/make_new_limit
+Content-Type: application/json
+
+{
+  "username": "vasia",
+  "productLimits": 2000
+}

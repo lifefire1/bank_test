@@ -1,0 +1,6 @@
+POST http://localhost:8081/all_limit_exceeded
+Content-Type: application/json
+
+{
+  "username": "vasia"
+}

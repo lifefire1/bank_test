@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: bank_user
+      POSTGRES_PASSWORD: your_password
+      POSTGRES_DB: your_database
+    ports:
+      - "5432:5432"
+
+  cassandra:
+    image: cassandra
+    restart: always
+    environment:
+      CASSANDRA_USER: cassandra_user
+      CASSANDRA_PASSWORD: cassandra_password
+      CASSANDRA_KEYSPACE: your_keyspace
+    ports:
+      - "9042:9042"
+
+  client-service:
+    build: ./client  # Путь к Dockerfile внутри модуля client
+    restart: always
+    ports:
+      - "8081:8081"  # Порт, на котором запущен ваш сервис внутри Docker
+  server-service:
+    build: ./server  # Путь к Dockerfile внутри модуля server
+    restart: always
+    ports:
+      - "8080:8080"  # Порт, на котором запущен ваш сервис внутри Docker

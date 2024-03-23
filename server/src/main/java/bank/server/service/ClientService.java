@@ -43,7 +43,9 @@ public class ClientService {
 
     public List<Operation> getAlLimitExceededOperations(String username) {
         Optional<User> tempUser = userRepository.findFirstByUsername(username);
+        log.info("receive data is : {}", tempUser);
         List<Operation> res = operationRepository.findAllByLimitExceededAndUser(true, tempUser.get());
+        log.info("find data is : {}", res);;
         return res;
     }
 

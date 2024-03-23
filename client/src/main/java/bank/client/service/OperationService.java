@@ -35,7 +35,7 @@ public class OperationService {
 
         // Выполните запрос и получите ResponseEntity<String>
         ResponseEntity<String> responseEntity = restTemplate.exchange(
-                "http://localhost:8080/all_operations/retrieve?userId=" + userId,
+                "http://server-service:8080/all_operations/retrieve?userId=" + userId,
                 HttpMethod.GET,
                 requestEntity,
                 String.class
@@ -65,7 +65,7 @@ public List<User> getLimitOperation(String username) throws JsonProcessingExcept
 
     // Выполните запрос и получите ResponseEntity<String>
     ResponseEntity<String> responseEntity = restTemplate.exchange(
-            "http://localhost:8080/all_limit_operations/retrieve?username=" + username,
+            "http://server-service:8080/all_limit_operations/retrieve?username=" + username,
             HttpMethod.GET,
             requestEntity,
             String.class
@@ -95,7 +95,7 @@ public List<Operation> getAllLimitExceededOperation(String username) throws Json
     ObjectMapper objectMapper = new ObjectMapper();
 
     // Выполните запрос и получите ResponseEntity<String>
-    String url = "http://localhost:8080/all_limit_operations/retrieve?username="+username;
+    String url = "http://server-service:8080/all_limit_exceeded/retrieve?username="+username;
     ResponseEntity<String> responseEntity = restTemplate.exchange(
             url,
             HttpMethod.GET,
@@ -107,6 +107,8 @@ public List<Operation> getAllLimitExceededOperation(String username) throws Json
         // Получите строку JSON из ResponseEntity
         String responseBody = responseEntity.getBody();
 
+        log.info(responseBody);
+
         // Преобразуйте JSON в список объектов типа Operation
         List<Operation> operations = objectMapper.readValue(responseBody, new TypeReference<List<Operation>>() {
         });
@@ -117,7 +119,7 @@ public List<Operation> getAllLimitExceededOperation(String username) throws Json
 }
 
 public boolean setNewLimit(User user) {
-    String url = "http://localhost:8080/make_new_limit/retrieve";
+    String url = "http://server-service:8080/make_new_limit/retrieve";
 
     // Создание объекта RestTemplate
     RestTemplate restTemplate = new RestTemplate();

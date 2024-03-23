@@ -42,7 +42,7 @@ class OperationServiceTest {
         // Mocking the RestTemplate
         RestTemplate restTemplate = mock(RestTemplate.class);
         when(restTemplate.exchange(
-                eq("http://localhost:8080/all_operations/retrieve?userId=1"),
+                eq("http://server-service:8080/all_operations/retrieve?userId=1"),
                 eq(HttpMethod.GET),
                 any(HttpEntity.class),
                 eq(String.class)
@@ -72,7 +72,7 @@ class OperationServiceTest {
         // Mocking the RestTemplate
        // RestTemplate restTemplate = mock(RestTemplate.class);
         when(restTemplate.exchange(
-                eq("http://localhost:8080/all_limit_operations/retrieve?username=testUser"),
+                eq("http://server-service:8080/all_limit_operations/retrieve?username=testUser"),
                 eq(HttpMethod.GET),
                 any(),
                 eq(String.class)
@@ -100,7 +100,7 @@ class OperationServiceTest {
         // Mocking the RestTemplate
         RestTemplate restTemplate = mock(RestTemplate.class);
         when(restTemplate.exchange(
-                eq("http://localhost:8080/all_limit_operations/retrieve?username=testUser"),
+                eq("http://server-service:8080/all_limit_exceeded/retrieve?username=testUser"),
                 any(),
                 any(),
                 eq(String.class)
