@@ -5,7 +5,7 @@ Content-Type: application/json
   "user": {
     "id": 1
   },
-  "currency": "RUB",
+  "currency": "KZT",
   "type": "SERVICE",
-  "value": 10000
+  "value": 10000000
 }
