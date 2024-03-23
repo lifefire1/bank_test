@@ -1,8 +1,10 @@
 package bank.server.service;
 
+import io.swagger.annotations.Api;
 import bank.server.entity.Currency;
 import bank.server.repository.CurrencyRateRepository;
 import bank.server.table.CurrencyRate;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,14 +15,17 @@ import java.util.Optional;
 
 @Service
 @Slf4j
+@Api(tags = "Update Currency Rate Service", description = "Service for updating currency rates")
 public class UpdateCurrencyRateService {
-    @Autowired
-    CurrencyRateRepository currencyRateRepository;
 
+    private final CurrencyRateRepository currencyRateRepository;
+
+    @Autowired
     public UpdateCurrencyRateService(CurrencyRateRepository currencyRateRepository) {
         this.currencyRateRepository = currencyRateRepository;
     }
 
+    @ApiOperation("Update currency rates")
     public void update(Map<String, String> closedPrices) {
         for (Map.Entry<String, String> entry : closedPrices.entrySet()) {
             String currencyCode = entry.getKey().replace("\"", "");
@@ -28,7 +33,7 @@ public class UpdateCurrencyRateService {
 
             Optional<CurrencyRate> existingRateOptional = currencyRateRepository.findByCurrency(Currency.valueOf(currencyCode));
 
-                // Проверяем, существует ли запись
+            // Проверяем, существует ли запись
             if (existingRateOptional.isPresent()) {
                 CurrencyRate existingRate = existingRateOptional.get();
                 // Если запись существует, обновляем ее

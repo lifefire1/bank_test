@@ -20,14 +20,19 @@ services:
       CASSANDRA_KEYSPACE: your_keyspace
     ports:
       - "9042:9042"
+    volumes:
+      - ./init.sh:/init.sh
+    command: ["cassandra", "-f"]  # Запускаем cassandra и оставляем ее работать в фоновом режиме
 
-#  client-service:
-#    build: ./client  # Путь к Dockerfile внутри модуля client
-#    restart: always
-#    ports:
-#      - "8081:8081"  # Порт, на котором запущен ваш сервис внутри Docker
-#  server-service:
-#    build: ./server  # Путь к Dockerfile внутри модуля server
-#    restart: always
-#    ports:
-#      - "8080:8080"  # Порт, на котором запущен ваш сервис внутри Docker
+
+
+  client-service:
+    build: ./client  # Путь к Dockerfile внутри модуля client
+    restart: always
+    ports:
+      - "8081:8081"  # Порт, на котором запущен ваш сервис внутри Docker
+  server-service:
+    build: ./server  # Путь к Dockerfile внутри модуля server
+    restart: always
+    ports:
+      - "8080:8080"  # Порт, на котором запущен ваш сервис внутри Docker

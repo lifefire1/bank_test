@@ -6,6 +6,8 @@ import bank.server.repository.OperationRepository;
 import bank.server.repository.UserRepository;
 import bank.server.repository.UserSpendingRepository;
 import bank.server.table.CurrencyRate;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,7 @@ import java.util.Optional;
 
 @Service
 @Slf4j
+@Api(tags = "Operation Service", description = "Service for operations handling")
 public class OperationService {
 
     private final OperationRepository operationRepository;
@@ -32,7 +35,7 @@ public class OperationService {
         this.repository = repository;
     }
 
-
+    @ApiOperation("Check operation")
     public boolean checkOperation(Operation operation) {
         if (operation == null || operation.getUser() == null || operation.getCurrency() == null || operation.getValue().compareTo(BigDecimal.ZERO) < 0) {
             return false;
@@ -111,7 +114,7 @@ public class OperationService {
             throw new RuntimeException("Currency rate not found for currency: " + currency);
         }
     }
-
+    @ApiOperation("Save operation")
     public boolean saveOperation(Operation operation){
         if(operation == null || !checkOperation(operation)){
             if(operation != null && operation.isLimitExceeded()){

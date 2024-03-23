@@ -1,10 +1,10 @@
 package bank.server.service;
 
 import bank.server.job.DailyJob;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
-import lombok.Getter;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.quartz.JobDetail;
 import org.quartz.Scheduler;
@@ -12,10 +12,10 @@ import org.quartz.SchedulerException;
 import org.quartz.Trigger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.quartz.JobExecutionContext;
 
 @Service
 @Slf4j
+@Api(tags = "Scheduler Service", description = "Service for managing scheduler")
 public class SchedulerService {
     private final Scheduler scheduler;
     private final JobDetail dailyJobDetail;
@@ -31,6 +31,7 @@ public class SchedulerService {
     }
 
     @PostConstruct
+    @ApiOperation("Initialize scheduler")
     public void init(){
         try{
             scheduler.start();
@@ -41,6 +42,7 @@ public class SchedulerService {
     }
 
     @PreDestroy
+    @ApiOperation("Shutdown scheduler")
     public void preDestroy(){
         try{
             scheduler.shutdown();

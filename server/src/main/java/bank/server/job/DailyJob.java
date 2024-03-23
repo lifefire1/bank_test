@@ -2,6 +2,8 @@ package bank.server.job;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.quartz.Job;
@@ -22,6 +24,7 @@ import java.util.Map;
 
 @Slf4j
 @Component
+@Api(tags = "Daily Job", description = "Scheduled job for retrieving daily currency rates and sending them to the controller")
 public class DailyJob implements Job {
 
     private final RestTemplate restTemplate = new RestTemplate();
@@ -31,15 +34,16 @@ public class DailyJob implements Job {
     public DailyJob() {
     }
 
+    @ApiOperation(value = "Retrieve daily currency rates from an external API")
     public Map<String, String> getClosedPrices() {
         Map<String, String> closedPrices = new HashMap<>();
         String apikey = "edff0a6c884248c1970927f41d4ec174";
         StringBuilder url = new StringBuilder("https://api.twelvedata.com/time_series?symbol=");
         var currencyList = Currency.getAllCurrencyCodes();
-        for (var elem : currencyList){
+        for (var elem : currencyList) {
             url.append("USD/").append(elem).append(",");
         }
-        url.replace(url.length()-1,url.length(),"");
+        url.replace(url.length() - 1, url.length(), "");
         url.append("&interval=1day&apikey=").append(apikey).append("&source=docs&outputsize=1");
         log.info(url.toString());
 
@@ -49,12 +53,12 @@ public class DailyJob implements Job {
 
         String closePrice;
         try {
-            for (var currency: currencyList){
+            for (var currency : currencyList) {
                 JsonNode rootNode = objectMapper.readTree(response.getBody());
                 JsonNode usdRubNode = rootNode.get("USD/" + currency);
                 JsonNode valuesNode = usdRubNode.get("values");
                 closePrice = valuesNode.get(0).get("close").toString();
-                closedPrices.put(currency,closePrice);
+                closedPrices.put(currency, closePrice);
             }
 
         } catch (IOException e) {
@@ -63,6 +67,7 @@ public class DailyJob implements Job {
         return closedPrices;
     }
 
+    @ApiOperation(value = "Send daily currency rates to the controller")
     public void sendClosedPricesToController() {
         Map<String, String> closedPrices = getClosedPrices();
 
@@ -74,7 +79,7 @@ public class DailyJob implements Job {
         try {
             json = objectMapper.writeValueAsString(closedPrices);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
             return;
         }
 

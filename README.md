@@ -13,7 +13,7 @@ mvn package -DskipTests
 # Настройки для подключения к PostgreSQL
 
 ```yml
-# ????????? ??? ??????????? ? PostgreSQL
+# connect to  PostgreSQL
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/your_database
@@ -29,7 +29,7 @@ spring:
 
 
 
-# ????????? ??? ??????????? ? Cassandra
+# Connect to Cassandra
   cassandra:
     keyspace-name: your_keyspace
     schema-action: recreate
@@ -40,7 +40,7 @@ spring:
 
 
 
-  # ????????? ?????????
+#  Server settings
   application:
     name: server
   server:
@@ -58,6 +58,10 @@ docker-compose up -d
 ```
 
 После этого создайте пространство ключей в Cassandra с именем your_keyspace с помощью команды:
+
+```CQL
+
+```
 
 mvn test
 
