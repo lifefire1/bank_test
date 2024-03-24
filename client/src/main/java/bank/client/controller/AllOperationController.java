@@ -4,18 +4,15 @@ import bank.client.representation.Operation;
 import bank.client.representation.User;
 import bank.client.service.OperationService;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import io.swagger.annotations.Api;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
-
 @RestController
-//@RequestMapping
 @Slf4j
+@Api(tags = "All operation", description = "clients api")
 public class AllOperationController {
     private final OperationService operationService;
 
