@@ -51,6 +51,12 @@ spring:
     allow-bean-definition-overriding: true
 ```
 
+после выполните команду 
+
+```shel
+mvn package
+```
+
 Запустить докер командой 
 
 ```shell
